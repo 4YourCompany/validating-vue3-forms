@@ -5,6 +5,8 @@
       type="email"
       v-model="email"
       :error="emailError"
+      :modelValue="email"
+      @change="handleChange"
     />
 
     <BaseInput
@@ -24,6 +26,7 @@
 </template>
 
 <script>
+import { handle } from 'express/lib/application'
 import { useField, useForm } from 'vee-validate'
 export default {
   setup () {
@@ -55,7 +58,7 @@ export default {
       validationSchema: validations
     })
 
-    const { value: email, errorMessage: emailError } = useField('email')
+    const { value: email, errorMessage: emailError, handleChange } = useField('email')
     const { value: password, errorMessage: passwordError } = useField('password')
 
     return {
@@ -63,7 +66,8 @@ export default {
       email,
       emailError,
       password,
-      passwordError
+      passwordError,
+      handleChange
     }
   }
 }
